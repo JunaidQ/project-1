@@ -1,7 +1,12 @@
 class AdventuresController < ApplicationController
 
-  def home
+  def new
+  	@adventure = Adventure.new
+  end
 
+  def create
+  	@adventure = Adventure.create!(params[:adventure])
+  	if @adventure.save 	
   end
 
 end
