@@ -2,6 +2,14 @@ ChooseYourOwnAdventure::Application.routes.draw do
 
   root to: 'adventures#home'
   resources :adventures
+#           root        /                              adventures#home
+#     adventures GET    /adventures(.:format)          adventures#index
+#                POST   /adventures(.:format)          adventures#create
+#  new_adventure GET    /adventures/new(.:format)      adventures#new
+# edit_adventure GET    /adventures/:id/edit(.:format) adventures#edit
+#      adventure GET    /adventures/:id(.:format)      adventures#show
+#                PUT    /adventures/:id(.:format)      adventures#update
+#                DELETE /adventures/:id(.:format)      adventures#destroy
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

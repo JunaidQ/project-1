@@ -5,8 +5,12 @@ class AdventuresController < ApplicationController
   end
 
   def create
-  	@adventure = Adventure.create!(params[:adventure])
-  	if @adventure.save 	
+  	@adventure = Adventure.new(params[:adventure])
+      if @adventure.save
+      	redirect_to new_adventure_path, notice: 'Adventure was successfully created.'
+      else
+      	render action: "new"
+      end
   end
 
 end
