@@ -12,17 +12,25 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :id_of_story %><br />
+    <%= f.text_field :id_of_story %>
+  </div>
+
+  <div class="field">
     <%= f.label :story %><br />
     <%= f.text_field :story %>
   </div>
+
   <div class="field">
     <%= f.label :question_1 %><br />
     <%= f.text_field :question_1 %>
   </div>
+
   <div class="field">
     <%= f.label :question_2 %><br />
     <%= f.text_field :question_2 %>
-  </div>  
+  </div>
+  
   <div class="field">
     <%= f.label :photo %><br />
     <%= f.file_field :photo %>

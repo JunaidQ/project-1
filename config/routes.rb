@@ -2,6 +2,7 @@ ChooseYourOwnAdventure::Application.routes.draw do
 
   root to: 'adventures#home'
   resources :adventures
+  match 'ajax_record/:id' => 'adventures#ajax_record'     # make this route for ajax function
 #           root        /                              adventures#home
 #     adventures GET    /adventures(.:format)          adventures#index
 #                POST   /adventures(.:format)          adventures#create

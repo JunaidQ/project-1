@@ -1,6 +1,7 @@
 class AdventuresController < ApplicationController
-
+ 
 	def home
+		@adventure = Adventure.first
 	end	
 
 	def new
@@ -14,6 +15,14 @@ class AdventuresController < ApplicationController
 	  else
 	  	render action: "new"
 	  end
+	end
+
+	def ajax_record
+		if params[:decision] == "undefined"
+			@adventure = Adventure.find(params[:id]) #find adventure by id if we are on first state
+		else
+			@adventure = Adventure.find_by_id_of_story(params[:decision])  # find adventure by id_of_story
+		end		
 	end
 
 end

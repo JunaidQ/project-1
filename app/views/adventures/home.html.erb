@@ -3,14 +3,46 @@
 
 <div class="main">
 
-<p><span class="frist_letter">N</span>early two hundred years ago, a cult of the demon prince Orcus purposely created such a gap, connectingone of Orcus’s unholy Shadowfell sites to the world. Skeletons, zombies, and fouler creatures flooded through the rift into the light of day. The empire of Nerath dispatched legionnaires to eliminate the threat. The empire’s soldiers destroyed the undead, sealed the opening, and built a keep to watch over the location and contain the threat. This isthe site known as the Keep on the Shadowfell.</p>
+<p><span class="frist_letter"><%= @adventure.story.first %></span><%= @adventure.story[1..-1] %><%= hidden_field_tag :adventure_id, @adventure.id %></p>
+<!-- make hidden field to get the current adventure_id -->
+<%= image_tag @adventure.photo.url %>
+<br/><br/>
+<% if @adventure.question_1.present? && @adventure.question_2.present? %>
+<!-- apply if condition for radio button not shown if there is no questions -->
+	<% if @adventure_id == 2 %>
+  		<input type="radio" name="decision" value=1 id="q-1"><%= @adventure.question_1 %><br/>
+  		<input type="radio" name="decision" value=2 id="q-2"><%= @adventure.question_2 %><br/>
+  	<% else %>
+  		<% story_id = @adventure.id_of_story %>
+  		<% if story_id == 1 || story_id == 2 %>
+  			<% left_radio_btn = story_id.to_f.to_s.succ %>
+  			<% right_radio_btn = left_radio_btn.succ %>
+<!-- assign the value to left radio button and right radio button if we are at first level of tree -->  	
+  		<% else %>
+  			<%= tree_level = story_id.to_s.split('.').last.size %> <!-- here i get the level of tree  -->
+  			<%= devided_factor = 1 / (10 ** (tree_level + 1)).to_f %>  <!-- make formula to get 1.1 or 1.2 -->
+  			<% left_radio_btn = story_id + devided_factor %>
+  			<% right_radio_btn = left_radio_btn + devided_factor  %>
+  			<% right_radio_btn = right_radio_btn.round(tree_level+2)%> <!-- round the decimal part -->
+<!-- assign the value to left radio button and right radio button if we are at different level of tree -->   			
+  		<% end %>
+  		<input type="radio" name="decision" value=<%= left_radio_btn %> class="questions"><%= @adventure.question_1 %><br/>
+  		<input type="radio" name="decision" value=<%= right_radio_btn %> class="questions"><%= @adventure.question_2 %><br/>
+  	<% end%>				
 
-<img src="/assets/2013-04-10-labyrinth.gif">
+<% end %>  
+</div>  
+  <button id="submit_button">Continue</button>
 
-<form>
-  <input type="radio" name="decision" value="labryinth" id="labryinth">Do you enter the labryinth?<br/>
-  <input type="radio" name="decision" value="wait"id="wait">Do you wait for the elf to return?<br/>
-  <button>Continue</button>
-</form>
-
-</div>
+<script>
+$(document).ready(function () {
+	$("#submit_button").click(function (){
+	    var decision_value = $('input:radio[name=decision]:checked').val();    // Get value of selected radio button
+ 		var theId = $('#adventure_id').val();  // Get the value of hidden field in which i store current adventure id
+		var theURL = '/ajax_record/' + (parseInt(theId) + 1)+'?decision='+ decision_value ; // call to ajax function which i have made in adventure_controller
+		$.ajax({
+          url: theURL // ajax call here
+        });  
+	});
+});
+</script>

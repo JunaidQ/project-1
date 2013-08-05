@@ -4,6 +4,6 @@ class Adventure < ActiveRecord::Base
   :url => "/system/:attachment/:id/:style/:basename.:extension",
   :path => ":rails_root/public/system/:attachment/:id/:style/:basename.:extension"
 
-  attr_accessible :story, :questions, :photo
+  attr_accessible :story, :question_1, :question_2, :id_of_story, :photo
   
 end
