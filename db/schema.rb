@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(:version => 20130803195325) do
     t.string   "question_1"
     t.string   "question_2"
     t.float    "id_of_story"
+    t.string   "outcome"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
     t.string   "photo_file_name"
@@ -35,8 +36,12 @@ ActiveRecord::Schema.define(:version => 20130803195325) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "screenname"
+    t.string   "email"
+    t.string   "password_hash"
+    t.string   "password_salt"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
 end

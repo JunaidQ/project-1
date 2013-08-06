@@ -1,3 +1,4 @@
+
 <% if @adventure.id == 2 %>	
   		var left_btn = '<input type="radio" name="decision" value=1 class="questions">'
   		var right_btn = '<input type="radio" name="decision" value=2 class="questions">'
@@ -13,11 +14,17 @@
   			<% right_radio_btn = left_radio_btn + devided_factor  %>
   			<% right_radio_btn = right_radio_btn.round(tree_level+2)%> // round the decimal part
   		<% end %>
-  		var left_btn = '<input type="radio" name="decision" value=<%= left_radio_btn %> class="questions">'
-  		var right_btn = '<input type="radio" name="decision" value=<%= right_radio_btn %> class="questions">'
+  		<% if @adventure.question_1.present? && @adventure.question_2.present? %>
+  			var left_btn = '<input type="radio" name="decision" value=<%= left_radio_btn %> class="questions">'
+  			var right_btn = '<input type="radio" name="decision" value=<%= right_radio_btn %> class="questions">'
+  		<% else %>
+  			var left_btn = ''
+  			var right_btn = ''
+  		<% end %>
+
 <% end%>
 
-var theHTML = '<p><span class="frist_letter"><%= escape_javascript(@adventure.story.chars.first) %></span><%= escape_javascript(@adventure.story[1..-1]) %><%= escape_javascript(hidden_field_tag :adventure_id, @adventure.id) %></p><%= escape_javascript(image_tag @adventure.photo.url) %><br>'+left_btn+'<%= escape_javascript(@adventure.question_1) %><br/>'+ right_btn +'<%= escape_javascript(@adventure.question_2) %><br/>';
+var theHTML = '<p><span class="frist_letter"><%= escape_javascript(@adventure.story.chars.first) %></span><%= escape_javascript(@adventure.story[1..-1]) %><%= escape_javascript(hidden_field_tag :adventure_id, @adventure.id) %></p><%= escape_javascript(image_tag @adventure.photo.url) %><br>'+left_btn+'<%= escape_javascript(@adventure.question_1) %><br/>'+ right_btn +'<%= escape_javascript(@adventure.question_2) %><br/><%= escape_javascript(@adventure.outcome) %>';
 // here i load the dynamic data which is return by ajax function
 
 $('.main').html(theHTML);

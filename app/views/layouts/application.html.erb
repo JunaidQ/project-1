@@ -7,7 +7,40 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	
+<!-- Start of Facebook API -->
+<div id="fb-root"></div>
+<script>
+  // Additional JS functions here
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '682915081735500', // App ID
+      channelUrl : 'https://serene-everglades-7411.herokuapp.com/', // Channel File
+      status     : true, // check login status
+      cookie     : true, // enable cookies to allow the server to access the session
+      xfbml      : true  // parse XFBML
+    });
 
+    // Additional init code here
+
+  };
+
+  // Load the SDK asynchronously
+  (function(d){
+     var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     ref.parentNode.insertBefore(js, ref);
+   }(document));
+</script>
+<!-- End of Facebook API -->
+
+<!-- Start of Facebook Channel File -->
+<script src="//connect.facebook.net/en_US/all.js"></script>
+<!-- End of Facebook Channel File -->
+
+<!-- Game Pages -->
 <%= yield %>
 
 </body>
